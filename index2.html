@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сенімді қадам</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:wght@700&display=swap">
+<style>
+/* Layout: narrow reading column, sticky tab bar, cards only for trainings & exercises */
+:root{--bg:#F5F7F8;--surface:#FFFFFF;--ink:#1B2B3A;--muted:#5B6B78;--line:#D9E1E6;--accent:#1F6F78;--accent-ink:#FFFFFF;
+--ej:#C2410C;--ej-bg:#FDEBDD;--sb:#1D6FB8;--sb-bg:#E1EEF9;--mr:#6D3FB0;--mr-bg:#EEE7F8;--oa:#2F7D32;--oa-bg:#E3F2E4;
+--display:"PT Serif",Georgia,serif;--body:"PT Sans","Segoe UI",Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121A20;--surface:#1A242C;--ink:#E6EDF1;--muted:#9AABB6;--line:#2C3A44;--accent:#5BB8C1;--accent-ink:#0E1A1F;
+--ej:#F59E6B;--ej-bg:#3A2418;--sb:#7DB8EA;--sb-bg:#172C3E;--mr:#B9A0EA;--mr-bg:#2A2140;--oa:#86C98A;--oa-bg:#1C3220;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121A20;--surface:#1A242C;--ink:#E6EDF1;--muted:#9AABB6;--line:#2C3A44;--accent:#5BB8C1;--accent-ink:#0E1A1F;
+--ej:#F59E6B;--ej-bg:#3A2418;--sb:#7DB8EA;--sb-bg:#172C3E;--mr:#B9A0EA;--mr-bg:#2A2140;--oa:#86C98A;--oa-bg:#1C3220;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-block:36px 20px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font:700 clamp(30px,5vw,44px)/1.1 var(--display);margin:8px 0 12px;text-wrap:balance}
+.lead{max-width:65ch;color:var(--muted);margin:0}
+/*who*/.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}.who>div{border-left:3px solid var(--accent);padding:2px 0 2px 12px;display:grid;gap:2px;align-content:start;min-width:0}.who b{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}.who span{font-size:15px}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding:0;list-style:none}
+.steps li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;background:var(--surface)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding-block:8px}
+nav a{color:var(--ink);text-decoration:none;padding:8px 14px;border-radius:8px;white-space:nowrap;font-weight:700;font-size:15px}
+nav a[aria-current="true"]{background:var(--accent);color:var(--accent-ink)}
+nav a:focus-visible,summary:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section{padding-block:24px}
+h2{font:700 26px/1.2 var(--display);margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 16px;max-width:65ch}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.filters button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.list{display:grid;gap:10px}
+.tr{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.tr summary{list-style:none;display:flex;gap:14px;padding:14px 16px;cursor:pointer;align-items:flex-start}
+.tr summary::-webkit-details-marker{display:none}
+.no{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font-weight:700;font-variant-numeric:tabular-nums}
+.tt{display:grid;gap:4px;min-width:0}
+.tt b{font-size:17px}
+.aim{color:var(--muted);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;padding:2px 8px;border-radius:6px;font-weight:700}
+.t-ej{background:var(--ej-bg);color:var(--ej)}.t-sb{background:var(--sb-bg);color:var(--sb)}.t-mr{background:var(--mr-bg);color:var(--mr)}.t-oa{background:var(--oa-bg);color:var(--oa)}
+.body{padding:0 16px 16px 64px}
+dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:8px 16px}
+dt{font-weight:700;color:var(--muted);font-size:14px}
+dd{margin:0;min-width:0}
+dd ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.exgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.ex{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.exh{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.ex h3{margin:0;font-size:17px}
+.kind{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.ex p{margin:0;font-size:15px}
+.ex .tag{align-self:flex-start}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+td.n{font-variant-numeric:tabular-nums;color:var(--muted)}
+.cr{font-size:12.5px;font-weight:700;margin-top:2px}
+.t-ej-txt{color:var(--ej)}.t-sb-txt{color:var(--sb)}.t-mr-txt{color:var(--mr)}.t-oa-txt{color:var(--oa)}
+select{font:inherit;padding:4px 6px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+tfoot td{font-weight:700;font-variant-numeric:tabular-nums}
+.scale{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted);margin:12px 0 0}
+.actions{display:flex;gap:8px;margin-top:12px}
+.actions button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cols>div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.cols h3{margin:0 0 8px;font-size:18px}
+.cols ol{margin:0;padding-left:20px;display:grid;gap:6px}
+footer{border-top:1px solid var(--line);margin-top:24px;padding-top:16px;color:var(--muted);font-size:14px}
+footer p{margin:4px 0;max-width:75ch}
+@media (max-width:640px){.body{padding-left:16px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:8px}.cols{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.ethic{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:15px;max-width:75ch}
+.mlist{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.m,.m>summary,.mt{min-width:0}
+.m{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.m>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;gap:6px}
+.m>summary::-webkit-details-marker{display:none}
+.mt{display:grid;gap:2px}.mt b{font-size:17px}.ma{color:var(--muted);font-size:14px}
+.mbody{padding:0 16px 16px;display:grid;gap:10px;min-width:0;grid-template-columns:minmax(0,1fr)}
+.mbody p{margin:0;max-width:75ch}
+.lform{display:grid;gap:8px}
+.q{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:0;min-width:0}
+.mbody>*{min-width:0}
+.q legend{font-weight:700;padding:0 4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px 16px;padding-top:4px}
+.opt{display:flex;gap:6px;align-items:center;cursor:pointer}
+.res{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-weight:700}
+.res .lv{display:inline-block;padding:2px 8px;border-radius:6px;margin-left:6px}
+.lv-hi{background:var(--oa-bg);color:var(--oa)}.lv-mid{background:var(--sb-bg);color:var(--sb)}.lv-lo{background:var(--ej-bg);color:var(--ej)}
+.sub2>summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.sub2{display:grid;gap:8px;grid-template-columns:minmax(0,1fr);min-width:0}
+.src{font-size:13.5px;color:var(--muted)}
+.hint{font-size:14px;color:var(--muted)}
+.ladder{display:grid;grid-template-columns:auto 120px;gap:8px 12px;align-items:center;max-width:420px}
+.lbl{font-weight:700;font-size:14px}
+textarea{font:inherit;width:100%;max-width:420px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg);color:var(--ink)}
+.pq{margin:0;padding-left:22px;display:grid;gap:8px}
+.pq li b{display:block}.po{color:var(--muted);font-size:14.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="eyebrow">Әлеуметтік педагогқа арналған цифрлық платформа</div>
+<h1>Сенімді қадам</h1>
+<p class="lead">Бастауыш сынып оқушыларының мектепке бейімделуін анықтауға арналған әдістемелер және оларды бейімдеуге арналған «Қауіпсіз орта – сенімді қадам» тренингтер жинағы. Платформа мектептегі әлеуметтік педагогтың күнделікті жұмысына арналған: тренингтерді бірінші сыныпқа келген кез келген оқушымен, соның ішінде психикалық дамуында тежелуі бар және ерекше білім беру қажеттіліктері бар оқушылармен қолдануға болады.</p>
+<div class="who"><div><b>Кімге</b><span>Әлеуметтік педагог, бастауыш сынып мұғалімі, ата-ана</span></div><div><b>Қай оқушыларға</b><span>Бастауыш сыныптың барлық оқушылары, оның ішінде ерекше білім беру қажеттіліктері бар оқушылар</span></div><div><b>Не бар</b><span>Бейімделуді анықтау әдістемелері, 10 тренинг, бақылау картасы, ұсынымдар</span></div></div>
+<ul class="steps"><li>Шағын топ: 4–8 оқушы</li><li>Ұзақтығы: 30–35 минут</li><li>Құрылымы: кіріспе рәсім → 2–4 жаттығу → рефлексия</li></ul>
+</header>
+<nav aria-label="Бөлімдер"><a href="#diag">Бейімделуді анықтау</a><a href="#trainings">Тренингтер</a><a href="#card">Бақылау картасы</a><a href="#tips">Ұсынымдар</a></nav>
+<section id="diag"><h2>Бейімделуді анықтау</h2>
+<p class="sub">Әлеуметтік педагогқа бастауыш сынып оқушысының мектепке бейімделуін анықтауға қажет әдістемелер. Оларды оқу жылының басында (қыркүйек–қазан), ортасында (қаңтар) және соңында (сәуір–мамыр) қолданған тиімді. Төмендегі формаларға енгізілген деректер ешқайда жіберілмейді: олар тек осы бетте есептеледі.</p>
+<div class="ethic"><b>Этикалық талаптар.</b> Диагностика ата-ананың (заңды өкілдің) жазбаша келісімімен жүргізіледі; оқушының аты-жөнінің орнына код қолданылады; нәтиже оқушыны «таңбалау» үшін емес, оған көмектің бағытын таңдау үшін пайдаланылады; бір әдістеменің нәтижесімен ғана қорытынды жасалмайды.</div>
+
+<div class="mlist">
+<details class="m" open><summary><span class="mt"><b>1. «Мектеп мотивациясының деңгейін бағалау» сауалнамасы</b><span class="ma">Н.Г. Лусканова · оқушы · 10 сұрақ · 10–15 минут</span></span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span><span class="tag t-oa">Оқу әрекетіне бейімделу</span><span class="tag t-sb">Әлеуметтік байланыстар</span></span></summary>
+<div class="mbody"><p><b>Не анықтайды:</b> оқушының мектепке эмоционалдық қатынасын, оқу мотивациясын, мұғаліммен, сыныптастарымен және отбасымен байланысын.</p>
+<p><b>Қалай жүргізіледі:</b> жеке немесе шағын топта. Әлеуметтік педагог әр сұрақты және жауап нұсқаларын асықпай оқып береді, оқушы өзіне сай бір жауапты белгілейді. Дұрыс не бұрыс жауап жоқ екені, жауаптар бағаға әсер етпейтіні алдын ала айтылады. Төменде оқушының жауаптарын белгілесеңіз, балл мен деңгей автоматты есептеледі.</p>
+<div class="lform"><fieldset class="q"><legend>1. Саған мектеп ұнай ма?</legend><div class="opts"><label class="opt"><input type="radio" name="lq1" id="lq1_1" value="1"> Онша емес</label><label class="opt"><input type="radio" name="lq1" id="lq1_2" value="2"> Ұнайды</label><label class="opt"><input type="radio" name="lq1" id="lq1_3" value="3"> Ұнамайды</label></div></fieldset><fieldset class="q"><legend>2. Таңертең оянғанда мектепке әрқашан қуанышпен барасың ба, әлде көбіне үйде қалғың келе ме?</legend><div class="opts"><label class="opt"><input type="radio" name="lq2" id="lq2_1" value="1"> Көбіне үйде қалғым келеді</label><label class="opt"><input type="radio" name="lq2" id="lq2_2" value="2"> Әртүрлі болады</label><label class="opt"><input type="radio" name="lq2" id="lq2_3" value="3"> Қуанышпен барамын</label></div></fieldset><fieldset class="q"><legend>3. Егер мұғалім ертең мектепке баруға міндетті емес десе, сен мектепке барар ма едің, әлде үйде қалар ма едің?</legend><div class="opts"><label class="opt"><input type="radio" name="lq3" id="lq3_1" value="1"> Білмеймін</label><label class="opt"><input type="radio" name="lq3" id="lq3_2" value="2"> Үйде қалар едім</label><label class="opt"><input type="radio" name="lq3" id="lq3_3" value="3"> Мектепке барар едім</label></div></fieldset><fieldset class="q"><legend>4. Сабақ болмай қалғаны саған ұнай ма?</legend><div class="opts"><label class="opt"><input type="radio" name="lq4" id="lq4_1" value="1"> Ұнамайды</label><label class="opt"><input type="radio" name="lq4" id="lq4_2" value="2"> Әртүрлі болады</label><label class="opt"><input type="radio" name="lq4" id="lq4_3" value="3"> Ұнайды</label></div></fieldset><fieldset class="q"><legend>5. Үй тапсырмасы берілмегенін қалар ма едің?</legend><div class="opts"><label class="opt"><input type="radio" name="lq5" id="lq5_1" value="1"> Қалар едім</label><label class="opt"><input type="radio" name="lq5" id="lq5_2" value="2"> Қаламас едім</label><label class="opt"><input type="radio" name="lq5" id="lq5_3" value="3"> Білмеймін</label></div></fieldset><fieldset class="q"><legend>6. Мектепте тек үзіліс қана болғанын қалар ма едің?</legend><div class="opts"><label class="opt"><input type="radio" name="lq6" id="lq6_1" value="1"> Білмеймін</label><label class="opt"><input type="radio" name="lq6" id="lq6_2" value="2"> Қаламас едім</label><label class="opt"><input type="radio" name="lq6" id="lq6_3" value="3"> Қалар едім</label></div></fieldset><fieldset class="q"><legend>7. Мектеп туралы ата-анаңа жиі айтасың ба?</legend><div class="opts"><label class="opt"><input type="radio" name="lq7" id="lq7_1" value="1"> Жиі</label><label class="opt"><input type="radio" name="lq7" id="lq7_2" value="2"> Сирек</label><label class="opt"><input type="radio" name="lq7" id="lq7_3" value="3"> Айтпаймын</label></div></fieldset><fieldset class="q"><legend>8. Мұғалімің онша қатал болмағанын қалар ма едің?</legend><div class="opts"><label class="opt"><input type="radio" name="lq8" id="lq8_1" value="1"> Нақты білмеймін</label><label class="opt"><input type="radio" name="lq8" id="lq8_2" value="2"> Қалар едім</label><label class="opt"><input type="radio" name="lq8" id="lq8_3" value="3"> Қаламас едім</label></div></fieldset><fieldset class="q"><legend>9. Сыныбыңда досың көп пе?</legend><div class="opts"><label class="opt"><input type="radio" name="lq9" id="lq9_1" value="1"> Аз</label><label class="opt"><input type="radio" name="lq9" id="lq9_2" value="2"> Көп</label><label class="opt"><input type="radio" name="lq9" id="lq9_3" value="3"> Досым жоқ</label></div></fieldset><fieldset class="q"><legend>10. Сыныптастарың саған ұнай ма?</legend><div class="opts"><label class="opt"><input type="radio" name="lq10" id="lq10_1" value="1"> Иә</label><label class="opt"><input type="radio" name="lq10" id="lq10_2" value="2"> Онша емес</label><label class="opt"><input type="radio" name="lq10" id="lq10_3" value="3"> Жоқ</label></div></fieldset></div>
+<div class="res" id="lres" aria-live="polite">Жауаптарды белгілеңіз: <span id="lcount">0</span>/10</div>
+<div class="actions"><button type="button" id="lclear">Жауаптарды тазалау</button></div>
+<details class="sub2"><summary>Кілт және деңгейлер</summary>
+<p>Балл жауаптың нөміріне емес, мазмұнына қарай қойылады: оң жауап – 3 балл, бейтарап – 1 балл, жағымсыз – 0 балл.</p>
+<div class="tablewrap"><table><thead><tr><th>Балл</th><th>Деңгей</th><th>Сипаттамасы</th></tr></thead><tbody>
+<tr><td>25–30</td><td>Жоғары</td><td>Танымдық мотивтері айқын, мектеп талаптарын толық қабылдайды</td></tr>
+<tr><td>20–24</td><td>Жақсы</td><td>Мектепке қатынасы жағымды, оқу талаптарын табысты орындайды</td></tr>
+<tr><td>15–19</td><td>Орташа</td><td>Мектепке жағымды қарайды, бірақ мектеп оны көбіне сабақтан тыс жақтарымен тартады</td></tr>
+<tr><td>10–14</td><td>Төмен</td><td>Мектепке баруға ынтасы аз, оқуда қиналады, ересектің тұрақты қолдауын қажет етеді</td></tr>
+<tr><td>10-нан төмен</td><td>Дезадаптация белгісі</td><td>Мектепке жағымсыз қатынас; маман кеңесін қажет етеді</td></tr></tbody></table></div>
+<p class="src">Дереккөз: Лусканова Н.Г. Методы исследования детей с трудностями в обучении. – Москва, 1993.</p></details>
+</div></details>
+
+<details class="m"><summary><span class="mt"><b>2. «Баспалдақ» әдістемесі</b><span class="ma">В.Г. Щур · оқушы · жеке · 5–10 минут</span></span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span></span></summary>
+<div class="mbody"><p><b>Не анықтайды:</b> оқушының өзін-өзі бағалауын және оны ересектер (ата-анасы, мұғалімі) қалай бағалайды деп ойлайтынын.</p>
+<p><b>Қалай жүргізіледі:</b> қағазға жеті баспалдақты саты салынады. Оқушыға: «Ең жоғарғы баспалдақта ең жақсы балалар, ең төменгісінде ең нашар балалар, ортасында – орташа балалар тұрады. Сен өзіңді қай баспалдаққа қояр едің?» деп айтылады. Содан кейін: «Анаң (әкең) сені қай баспалдаққа қояр еді? Мұғалімің ше?» деп сұралады. Оқушының жауабы мен түсіндірмесі тіркеледі.</p>
+<div class="ladder"><label for="ls1">Өзін қойған баспалдақ</label><select id="ls1"><option value="">–</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select>
+<label for="ls2">Ата-анасы қояды деп ойлайды</label><select id="ls2"><option value="">–</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select>
+<label for="ls3">Мұғалімі қояды деп ойлайды</label><select id="ls3"><option value="">–</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select></div>
+<p class="hint">Баспалдақтар жоғарыдан төмен қарай нөмірленеді: 1 – ең жоғарғы, 7 – ең төменгі.</p>
+<div class="res" id="lsres" aria-live="polite">Баспалдақтарды таңдаңыз.</div>
+<p><b>Түсіндіру:</b> кіші мектеп жасындағы оқушының өзін жоғарғы баспалдақтарға (1–3) қоюы жасына тән құбылыс. Өзін ортаңғы (4) немесе төменгі (5–7) баспалдаққа қоюы, әсіресе «ересектер мені төмен бағалайды» деген жауаппен қатар келсе, өзін-өзі бағалаудың төмендігін және мазасыздықты көрсетуі мүмкін; мұндай жағдайда педагог-психологпен бірлесіп әңгімелесу ұсынылады.</p>
+<p class="src">Дереккөз: Щур В.Г. Методика изучения представлений ребенка об отношениях к нему других людей // Психология личности: теория и эксперимент. – Москва, 1982.</p></div></details>
+
+<details class="m"><summary><span class="mt"><b>3. Социометрия</b><span class="ma">Дж. Морено · сынып · 10–15 минут</span></span><span class="tags"><span class="tag t-sb">Әлеуметтік байланыстар</span></span></summary>
+<div class="mbody"><p><b>Не анықтайды:</b> оқушының сыныптағы орнын: оны сыныптастары қаншалықты таңдайтынын, өзара достық байланыстарын, оқшауланған оқушыларды.</p>
+<p><b>Қалай жүргізіледі:</b> әр оқушыға жеке сұрақ қойылады, ол сыныптан үш адамға дейін атайды. Бастауыш сыныпқа ыңғайлы сұрақтар: «Сыныптан кіммен бір партада отырғың келеді?», «Туған күніңе кімді шақырар едің?», «Үзілісте кіммен ойнағың келеді?». Бастауыш сыныпта жағымсыз таңдау («кіммен отырғың келмейді?») сұралмайды. Нәтиже құпия сақталады.</p>
+<p><b>Есептеу құралы.</b> Оқушылардың кодтарын (мысалы, О-01, О-02) әр жолға біреуден енгізіп, «Кесте құру» батырмасын басыңыз, сосын әр оқушының таңдауын белгілеңіз. Аты-жөнін емес, кодты енгізу ұсынылады.</p>
+<label for="smnames" class="lbl">Сынып тізімі (әр жолға бір код)</label>
+<textarea id="smnames" rows="5">О-01
+О-02
+О-03
+О-04
+О-05
+О-06</textarea>
+<div class="actions"><button type="button" id="smbuild">Кесте құру</button></div>
+<div class="tablewrap" id="smwrap" hidden><table id="smtab"><thead><tr><th>Оқушы</th><th>1-таңдау</th><th>2-таңдау</th><th>3-таңдау</th></tr></thead><tbody></tbody></table></div>
+<div class="tablewrap" id="smoutw" hidden><table id="smout"><thead><tr><th>Оқушы</th><th>Алған таңдау саны</th><th>Өзара таңдау</th><th>Сыныптағы орны</th></tr></thead><tbody></tbody></table></div>
+<p class="hint">Орнын анықтаудың шартты шекаралары (үш таңдау кезінде): 0 – оқшауланған; 1 – аз таңдалған; 2–4 – қабылданған; 5 және одан көп – көп таңдалған.</p>
+<p class="src">Дереккөз: Морено Дж. Социометрия: экспериментальный метод и наука об обществе. – Москва, 1958.</p></div></details>
+
+<details class="m"><summary><span class="mt"><b>4. Әлеуметтік педагогтың бақылау картасы</b><span class="ma">бақылау · 12 көрсеткіш · 3 рет</span></span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span><span class="tag t-sb">Әлеуметтік байланыстар</span><span class="tag t-mr">Мінез-құлықты реттеу</span><span class="tag t-oa">Оқу әрекетіне бейімделу</span></span></summary>
+<div class="mbody"><p>Оқушының сабақтағы және үзілістегі мінез-құлқын бейімделудің төрт критерийі бойынша 0–3 балмен бағалауға арналған. Толтыру формасы «Бақылау картасы» бөлімінде берілген.</p><p><a href="#card">Бақылау картасына өту</a></p></div></details>
+
+<details class="m"><summary><span class="mt"><b>5. Мұғалімге арналған бағалау құралдары</b><span class="ma">Л.М. Ковалева мен Н.Н. Тарасенко · Э.М. Александровская · мұғалім</span></span><span class="tags"><span class="tag t-oa">Оқу әрекетіне бейімделу</span><span class="tag t-mr">Мінез-құлықты реттеу</span></span></summary>
+<div class="mbody"><p>Бірінші сынып оқушысының бейімделуін мұғалімнің бақылауы негізінде бағалауға арналған кең таралған құралдар: Л.М. Ковалева мен Н.Н. Тарасенконың мұғалімге арналған сауалнамасы және Э.М. Александровскаяның бейімделу мен оқу әрекетінің тиімділігін бақылау сызбасы. Олар оқушының оқу әрекетін, сабақтағы және сабақтан тыс мінез-құлқын, сыныптастарымен және мұғаліммен қарым-қатынасын, эмоционалдық күйін бағалауға мүмкіндік береді. Бұл құралдардың мәтіні мен өңдеу кілтін төмендегі түпнұсқа дереккөздерден алып қолданыңыз.</p>
+<p class="src">Дереккөздер: Ковалева Л.М., Тарасенко Н.Н. Психологический анализ особенностей адаптации первоклассников к школе // Начальная школа. – 1996. – № 7. – С. 17–22. Александровская Э.М. Социально-психологические критерии адаптации к школе // Школа и психическое здоровье учащихся / под ред. С.М. Громбаха. – Москва: Медицина, 1988.</p></div></details>
+
+<details class="m"><summary><span class="mt"><b>6. Ата-анамен әңгімелесу сауалнамасы</b><span class="ma">автордың әзірлемесі · ата-ана · 10 сұрақ</span></span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span><span class="tag t-sb">Әлеуметтік байланыстар</span></span></summary>
+<div class="mbody"><p>Оқушының үйдегі көңіл күйі мен мектепке қатынасы туралы қосымша ақпарат алуға арналған. Бұл стандартталған тест емес, әңгімелесуге бағыт беретін сұрақтар тізімі: оң жақтағы жауаптар көп болса, оқушыға қосымша қолдау қажет болуы мүмкін.</p>
+<ol class="pq"><li><b>Бала таңертең мектепке қалай барады?</b><span class="po">☐ Қуанышпен · ☐ Әртүрлі · ☐ Көбіне барғысы келмейді</span></li><li><b>Бала мектептен келгенде көңіл күйі қандай?</b><span class="po">☐ Көбіне жақсы · ☐ Әртүрлі · ☐ Көбіне шаршаңқы немесе ренжулі</span></li><li><b>Мектептегі күні туралы өзі айтып бере ме?</b><span class="po">☐ Жиі · ☐ Сұрағанда ғана · ☐ Айтпайды</span></li><li><b>Сыныптастарының есімін атап, достары туралы айта ма?</b><span class="po">☐ Иә · ☐ Сирек · ☐ Жоқ</span></li><li><b>Мұғалімі туралы қалай айтады?</b><span class="po">☐ Жылы лебізбен · ☐ Бейтарап · ☐ Қорқатынын немесе ұнатпайтынын айтады</span></li><li><b>Үй тапсырмасын орындауға қанша көмек қажет?</b><span class="po">☐ Өзі орындайды · ☐ Аздап көмек керек · ☐ Ересексіз орындай алмайды</span></li><li><b>Ұйқысы мен тәбеті мектепке барғаннан кейін өзгерді ме?</b><span class="po">☐ Өзгерген жоқ · ☐ Аздап өзгерді · ☐ Айтарлықтай нашарлады</span></li><li><b>Іші не басы ауырады деп мектепке бармауға себеп іздей ме?</b><span class="po">☐ Жоқ · ☐ Кейде · ☐ Жиі</span></li><li><b>Қиналғанда ересектен көмек сұрай ала ма?</b><span class="po">☐ Иә · ☐ Кейде · ☐ Жоқ</span></li><li><b>Сіздің ойыңызша, бала мектепке бейімделді ме?</b><span class="po">☐ Иә · ☐ Толық емес · ☐ Жоқ</span></li></ol></div></details>
+</div></section>
+<section id="trainings"><h2>Он тренинг</h2><p class="sub">Әр тренинг бейімделудің бір немесе екі критерийіне бағытталған. Сүзгі арқылы оқушыға қажет бағытты таңдаңыз; тренингті ашу үшін атауын басыңыз.</p>
+<div class="filters" role="group" aria-label="Критерий бойынша сүзгі"><button type="button" data-f="all" aria-pressed="true">Барлығы</button><button type="button" data-f="ej" aria-pressed="false">Эмоционалдық жайлылық</button><button type="button" data-f="sb" aria-pressed="false">Әлеуметтік байланыстар</button><button type="button" data-f="mr" aria-pressed="false">Мінез-құлықты реттеу</button><button type="button" data-f="oa" aria-pressed="false">Оқу әрекетіне бейімделу</button></div>
+<div class="list" id="trlist"><details class="tr" data-c="ej"><summary><span class="no">1</span><span class="tt"><b>«Менің мектебім»</b><span class="aim">Мектеп ортасына эмоционалдық тұрғыдан бейімделуді жеңілдету, мектеп кеңістігімен таныстыру.</span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Доп, мектеп бөлмелерінің суреттері, смайлик карточкалары.</dd><dt>Кіріспе бөлім</dt><dd>«Сәлем, досым!» шаттық шеңбері: оқушылар шеңбер бойымен тұрып, допты бір-біріне беріп, көршісінің атын атап сәлемдеседі.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Мектепте не бар?» – әлеуметтік педагог сынып, асхана, кітапхана, спорт залы, медициналық кабинет суреттерін көрсетеді; оқушылар әр бөлменің атын атап, онда не істелетінін айтады.</li><li>«Мектеп бойынша саяхат» – топ әлеуметтік педагогпен бірге мектептің негізгі бөлмелерін аралап, ондағы қызметкерлермен амандасады; қиын жағдайда қайда баруға болатыны бірге анықталады.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Оқушылар көңіл күйін смайлик карточкасымен белгілеп, мектепте өздеріне ұнаған бір орынды атайды.</dd><dt>Үйде бекіту</dt><dd>Ата-анасына мектепте көрген бір бөлме туралы айтып беру.</dd></dl></div></details><details class="tr" data-c="sb"><summary><span class="no">2</span><span class="tt"><b>«Біз біргеміз»</b><span class="aim">Сыныптастарымен қарым-қатынас және топқа қосылу дағдыларын қалыптастыру.</span><span class="tags"><span class="tag t-sb">Әлеуметтік байланыстар</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Доп, жұмсақ ойыншық, бояуға арналған суреттер, түрлі түсті қарындаштар.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері: әр оқушы көршісіне қарап, атын атап сәлем береді.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Атымызды айтайық» – оқушы өз атын айтып, өзіне ұнайтын бір әрекетті қимылмен көрсетеді, топ оны қайталайды.</li><li>«Ортақ зат» – ойыншық шеңбер бойымен беріледі, оны ұстаған оқушы сыныптасына бір қарапайым сұрақ қояды.</li><li>Жұппен бірге бояу – екі оқушы бір суретті түстерді келісе отырып бірге бояйды.</li><li>«Досыма жақсы сөз» – әр оқушы жұбына бір жылы сөз айтады.</li></ol></dd>
+<dt>Рефлексия</dt><dd>«маған ұнады / қиын болды» карточкаларын таңдау.</dd><dt>Үйде бекіту</dt><dd>Үйдегілерге сыныптағы бір досының атын және онымен не істегенін айту.</dd></dl></div></details><details class="tr" data-c="mr"><summary><span class="no">3</span><span class="tt"><b>«Мектеп ережелерін білеміз»</b><span class="aim">Мектептегі негізгі әлеуметтік ережелерді меңгерту.</span><span class="tags"><span class="tag t-mr">Мінез-құлықты реттеу</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Мектеп жағдаяттарының суреттері, қызыл, сары және жасыл карточкалар.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері және алдыңғы тренингті еске түсіру.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Дұрыс па, бұрыс па?» – суретте көрсетілген жағдаятқа (сабақта қол көтеру, дәлізде жүгіру, кезек күту) оқушылар жасыл немесе қызыл карточка көтереді, әр жауап бірге талқыланады.</li><li>«Бағдаршам» ойыны – қызыл түс «тоқта», сары түс «ойлан», жасыл түс «әрекет ет» дегенді білдіреді; ережелер ойын барысында қимылмен бекітіледі.</li><li>Ережені таңдап қайталау – әр оқушы бір ережені таңдап, оны сөзбен айтып, көрсетеді; ережелер сурет түрінде тақтаға ілінеді.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Оқушылар өздері есте сақтаған бір ережені атайды.</dd><dt>Үйде бекіту</dt><dd>Ата-анасымен бірге үйдегі бір ережені таңдап, оны сақтау.</dd></dl></div></details><details class="tr" data-c="ej"><summary><span class="no">4</span><span class="tt"><b>«Эмоцияларды танимын»</b><span class="aim">Негізгі эмоцияларды тануға және өз көңіл күйін сөзбен білдіруге үйрету.</span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Қуаныш, мұң, ашу, қорқыныш және таңдану бейнеленген суреттер, айна, «көңіл күй термометрі» плакаты.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері: әр оқушы бүгінгі көңіл күйін бір сөзбен атайды.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Смайликті тап» – әлеуметтік педагог қысқа жағдаят айтады, оқушы оған сәйкес эмоция суретін табады.</li><li>«Айна» – оқушы жұбына қарап эмоцияны бет-әлпетімен көрсетеді, жұбы оны атайды.</li><li>«Мен қашан қуаныштымын?» – әр оқушы өзін қуантатын бір жағдайды айтады.</li><li>«Көңіл күй термометрі» – оқушы көңіл күйінің деңгейін плакатта белгілейді; ренжігенде не істеуге болатыны бірге талқыланады.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Көңіл күй термометрінде тренингтен кейінгі көңіл күйді белгілеу.</dd><dt>Үйде бекіту</dt><dd>Кешке ата-анасына күні бойғы бір көңіл күйін атап айту.</dd></dl></div></details><details class="tr" data-c="oa sb"><summary><span class="no">5</span><span class="tt"><b>«Көмек сұрауды үйренемін»</b><span class="aim">Қиын жағдайда ересекке жүгіну дағдысын қалыптастыру.</span><span class="tags"><span class="tag t-oa">Оқу әрекетіне бейімделу</span><span class="tag t-sb">Әлеуметтік байланыстар</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Жағдаят карточкалары, сөйлем үлгілері жазылған карточкалар («Маған көмектесіңізші», «Мен түсінбедім, қайталап айтыңызшы»), мектеп қызметкерлерінің суреттері.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>Жағдаяттық ойын – «қарындашым сынып қалды», «тапсырманы түсінбедім», «басым ауырып тұр» сияқты жағдаяттар ойналады.</li><li>Сөйлем үлгілерін жаттықтыру – оқушылар көмек сұрау үлгілерін жұппен кезектесіп айтады.</li><li>«Кім көмектеседі?» – суреттерден мектептегі ересектерді (мұғалім, әлеуметтік педагог, педагог-психолог, медбике) тауып, кімге қандай мәселемен жүгінуге болатыны анықталады.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Әр оқушы бір сөйлем үлгісін қайталап айтады.</dd><dt>Үйде бекіту</dt><dd>Үйде бір рет көмек сұрау үлгісін қолданып көру.</dd></dl></div></details><details class="tr" data-c="sb"><summary><span class="no">6</span><span class="tt"><b>«Менің досым»</b><span class="aim">Достық қарым-қатынас туралы түсінік қалыптастыру.</span><span class="tags"><span class="tag t-sb">Әлеуметтік байланыстар</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Конструктор немесе кубиктер, қағаздан қиылған жүректер.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Дос деген кім?» – қысқа әңгімеден кейін досқа тән әрекеттер талқыланады.</li><li>«Досқа көмектес» – досына көмектесу жолдары жағдаяттар арқылы ойналады.</li><li>Жұптық мұнара құрастыру – екі оқушы келісе отырып, кезекпен бір мұнара тұрғызады.</li><li>«Досымның жақсы қасиеті» – оқушы жұбының бір жақсы қасиетін атап, оны қағаз жүрекке салған суретімен белгілейді.</li></ol></dd>
+<dt>Рефлексия</dt><dd>«маған ұнады / қиын болды» карточкаларын таңдау.</dd><dt>Үйде бекіту</dt><dd>Досына арналған шағын сурет салу.</dd></dl></div></details><details class="tr" data-c="mr sb"><summary><span class="no">7</span><span class="tt"><b>«Жанжалды бейбіт шешемін»</b><span class="aim">Жанжал жағдайында қауіпсіз мінез-құлық тәсілдерін қалыптастыру.</span><span class="tags"><span class="tag t-mr">Мінез-құлықты реттеу</span><span class="tag t-sb">Әлеуметтік байланыстар</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>«Үш қадам» алгоритмінің көрнекі картасы, жағдаят карточкалары.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері және «Менің досым» тренингін еске түсіру.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Үш қадам» алгоритмі – «тоқта – сөзбен айт – көмек сұра» қадамдары пиктограммамен бекітіледі.</li><li>Сөйлем үлгілері – «Маған бұл ұнамайды», «Кезекпен ойнайық» тіркестері жаттықтырылады.</li><li>Рөлдік ойын – «біреу қарындашымды алды», «мені ойынға қоспады» жағдаяттары ойналып, алгоритм қолданылады.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Оқушылар алгоритмнің үш қадамын бірге атайды.</dd><dt>Үйде бекіту</dt><dd>Үйде келіспеушілік туғанда «Үш қадамды» еске түсіру.</dd></dl></div></details><details class="tr" data-c="ej"><summary><span class="no">8</span><span class="tt"><b>«Мен өзіме сенемін»</b><span class="aim">Жағымды өзіндік бағаны қалыптастыру.</span><span class="tags"><span class="tag t-ej">Эмоционалдық жайлылық</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Ағаш бейнеленген плакат, жапырақ пішінді стикерлер.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Мен істей аламын» – әр оқушы өзі жақсы орындай алатын бір әрекетті атап, көрсетеді.</li><li>«Жетістік ағашы» – оқушылар өз жетістіктерін жапырақтарға салып, ағашқа жапсырады.</li><li>«Менің күшті жағым» – топ әр оқушының бір күшті жағын атайды.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Оқушылар «Жетістік ағашына» қарап, бүгінгі бір жетістігін атайды.</dd><dt>Үйде бекіту</dt><dd>Ата-анасымен бірге күн соңында бір жетістікті атап өту.</dd></dl></div></details><details class="tr" data-c="oa mr"><summary><span class="no">9</span><span class="tt"><b>«Мектептегі бір күнім»</b><span class="aim">Мектеп күнінің құрылымын және әрекеттер реттілігін қабылдауға көмектесу.</span><span class="tags"><span class="tag t-oa">Оқу әрекетіне бейімделу</span><span class="tag t-mr">Мінез-құлықты реттеу</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Күн тәртібінің суретті карточкалары, оқу құралдары, мектеп сөмкесі.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Күн тәртібін құрастыр» – суретті карточкалар мектеп күнінің ретімен орналастырылады.</li><li>«Не кейін болады?» – әлеуметтік педагог бір әрекетті атайды, оқушылар келесі әрекетті табады.</li><li>«Менің мектеп сөмкем» – ертеңгі сабаққа қажетті құралдар таңдалып, сөмкеге жиналады.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Әр оқушы мектеп күнінің өзіне ұнайтын бөлігін атайды.</dd><dt>Үйде бекіту</dt><dd>Ата-анасымен бірге күн тәртібінің көрнекі картасын жасау.</dd></dl></div></details><details class="tr" data-c="sb"><summary><span class="no">10</span><span class="tt"><b>«Біздің достық шеңберіміз»</b><span class="aim">Топтық бірлікті және сыныптағы жағымды ахуалды қалыптастыру.</span><span class="tags"><span class="tag t-sb">Әлеуметтік байланыстар</span></span></span></summary>
+<div class="body"><dl><dt>Материалдар</dt><dd>Ватман, бояулар, кубиктер.</dd><dt>Кіріспе бөлім</dt><dd>Шаттық шеңбері.</dd>
+<dt>Негізгі бөлім</dt><dd><ol><li>«Бір жылы сөз» – шеңберде әр оқушы көршісіне жылы сөз айтады.</li><li>«Ортақ сурет» – топ бір ватманға ортақ сурет салады.</li><li>Бірлескен мұнара – бүкіл топ бір мұнара тұрғызады.</li><li>«Біздің ережелеріміз» – топ сынып ережелерін бірге құрастырып, плакатқа түсіреді; плакат сыныпта ілінеді.</li></ol></dd>
+<dt>Рефлексия</dt><dd>Тренингтер циклі бойынша есте қалған бір жаттығуды атау, «маған ұнады / қиын болды» карточкаларын таңдау.</dd><dt>Үйде бекіту</dt><dd>Ата-анасына ортақ сурет туралы әңгімелеп беру.</dd></dl></div></details></div></section>
+<section id="card"><h2>Бейімделу динамикасын бақылау картасы</h2><p class="sub">Карта тренингтік жұмыстың басында, ортасында және соңында толтырылады. Оқушының нәтижесі басқа балалармен емес, өзінің бұрынғы көрсеткішімен салыстырылады. Белгілер тек осы браузерде сақталады.</p>
+<div class="tablewrap"><table><thead><tr><th>№</th><th>Көрсеткіш</th><th>Бастапқы</th><th>Аралық</th><th>Қорытынды</th></tr></thead><tbody><tr data-c="ej"><td class="n">1</td><td>Мектепке жағымды қатынасы<div class="cr t-ej-txt">Эмоционалдық жайлылық</div></td><td><select id="s1a" aria-label="Мектепке жағымды қатынасы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s1b" aria-label="Мектепке жағымды қатынасы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s1c" aria-label="Мектепке жағымды қатынасы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="ej"><td class="n">2</td><td>Эмоциясын тануы және білдіруі<div class="cr t-ej-txt">Эмоционалдық жайлылық</div></td><td><select id="s2a" aria-label="Эмоциясын тануы және білдіруі, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s2b" aria-label="Эмоциясын тануы және білдіруі, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s2c" aria-label="Эмоциясын тануы және білдіруі, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="ej"><td class="n">3</td><td>Өзіне сенімділігі<div class="cr t-ej-txt">Эмоционалдық жайлылық</div></td><td><select id="s3a" aria-label="Өзіне сенімділігі, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s3b" aria-label="Өзіне сенімділігі, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s3c" aria-label="Өзіне сенімділігі, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="sb"><td class="n">4</td><td>Сыныпқа қосылуы<div class="cr t-sb-txt">Әлеуметтік байланыстар</div></td><td><select id="s4a" aria-label="Сыныпқа қосылуы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s4b" aria-label="Сыныпқа қосылуы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s4c" aria-label="Сыныпқа қосылуы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="sb"><td class="n">5</td><td>Құрдастарымен қарым-қатынасы<div class="cr t-sb-txt">Әлеуметтік байланыстар</div></td><td><select id="s5a" aria-label="Құрдастарымен қарым-қатынасы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s5b" aria-label="Құрдастарымен қарым-қатынасы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s5c" aria-label="Құрдастарымен қарым-қатынасы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="sb"><td class="n">6</td><td>Мұғаліммен байланысы<div class="cr t-sb-txt">Әлеуметтік байланыстар</div></td><td><select id="s6a" aria-label="Мұғаліммен байланысы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s6b" aria-label="Мұғаліммен байланысы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s6c" aria-label="Мұғаліммен байланысы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="sb"><td class="n">7</td><td>Топтық әрекетке қатысуы<div class="cr t-sb-txt">Әлеуметтік байланыстар</div></td><td><select id="s7a" aria-label="Топтық әрекетке қатысуы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s7b" aria-label="Топтық әрекетке қатысуы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s7c" aria-label="Топтық әрекетке қатысуы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="mr"><td class="n">8</td><td>Мектеп ережесін сақтауы<div class="cr t-mr-txt">Мінез-құлықты реттеу</div></td><td><select id="s8a" aria-label="Мектеп ережесін сақтауы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s8b" aria-label="Мектеп ережесін сақтауы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s8c" aria-label="Мектеп ережесін сақтауы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="mr"><td class="n">9</td><td>Кезек күтуі және ортақ ережені ұстануы<div class="cr t-mr-txt">Мінез-құлықты реттеу</div></td><td><select id="s9a" aria-label="Кезек күтуі және ортақ ережені ұстануы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s9b" aria-label="Кезек күтуі және ортақ ережені ұстануы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s9c" aria-label="Кезек күтуі және ортақ ережені ұстануы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="mr"><td class="n">10</td><td>Қақтығыс жағдайындағы әрекеті<div class="cr t-mr-txt">Мінез-құлықты реттеу</div></td><td><select id="s10a" aria-label="Қақтығыс жағдайындағы әрекеті, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s10b" aria-label="Қақтығыс жағдайындағы әрекеті, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s10c" aria-label="Қақтығыс жағдайындағы әрекеті, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="oa"><td class="n">11</td><td>Көмек сұрау дағдысы<div class="cr t-oa-txt">Оқу әрекетіне бейімделу</div></td><td><select id="s11a" aria-label="Көмек сұрау дағдысы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s11b" aria-label="Көмек сұрау дағдысы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s11c" aria-label="Көмек сұрау дағдысы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr><tr data-c="oa"><td class="n">12</td><td>Тапсырманы соңына дейін орындауға талпынысы<div class="cr t-oa-txt">Оқу әрекетіне бейімделу</div></td><td><select id="s12a" aria-label="Тапсырманы соңына дейін орындауға талпынысы, a"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s12b" aria-label="Тапсырманы соңына дейін орындауға талпынысы, b"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td><td><select id="s12c" aria-label="Тапсырманы соңына дейін орындауға талпынысы, c"><option value="">–</option><option>0</option><option>1</option><option>2</option><option>3</option></select></td></tr></tbody>
+<tfoot><tr><td></td><td>Жалпы балл (0–36)</td><td id="ta">0</td><td id="tb">0</td><td id="tc">0</td></tr></tfoot></table></div>
+<p class="scale"><span><b>0</b> – байқалмайды / орындай алмайды</span><span><b>1</b> – ересектің көмегімен</span><span><b>2</b> – жартылай дербес</span><span><b>3</b> – өздігінен</span></p>
+<div class="actions"><button type="button" id="clear">Картаны тазалау</button></div></section>
+<section id="tips"><h2>Ұсынымдар</h2><div class="cols"><div><h3>Бастауыш сынып мұғаліміне</h3><ol><li>Нұсқауды қысқа әрі нақты беріп, қажет болса оқушыға жеке қайталау.</li><li>Көлемді тапсырманы шағын бөліктерге бөліп, әр бөліктен кейін нәтижені бірге тексеру.</li><li>Ауызша нұсқауды көрнекі тірекпен (сурет, алгоритм, үлгі) қолдау.</li><li>Оқушының жауабын асықпай күтіп, жауап беруге уақыт қалдыру.</li><li>Жетістікті нақты атап көрсету, оқушының нәтижесін сынып орташасымен емес, оның өз бұрынғы нәтижесімен салыстыру.</li><li>Сабақ барысында әрекет түрлерін ауыстырып, қысқа қимыл үзілістерін ұйымдастыру.</li><li>Оқушыны мұғалімге жақын, назарды бөлетін заттардан алыс орынға отырғызу.</li><li>Тренингте меңгерілген дағдыларды (көмек сұрау, «Үш қадам» алгоритмі) сабақта қолдап, бекіту.</li><li>Сыныпта кемсітуге жол бермей, құрдастардың өзара көмегін және жұптық жұмысты ұйымдастыру.</li><li>Оқушының сабақтағы мінез-құлқы туралы әлеуметтік педагогпен тұрақты кері байланыс жасау.</li></ol></div><div><h3>Ата-анаға</h3><ol><li>Баланы басқа балалармен салыстырмау, оның өз жетістігін атап өту.</li><li>Мектепке қатысты жағымды сөздерді жиі қолдану, мектеп туралы әңгімені күнделікті әдетке айналдыру.</li><li>Күн тәртібін сақтау, таңертең асықпай дайындалуға жағдай жасау.</li><li>Кішкентай жетістіктерді байқап, мадақтау; «сен істей алмайсың» деген бағалаудан бас тарту.</li><li>Бала қиындыққа тап болғанда алдымен оны тыңдау, содан кейін бірге шешім іздеу.</li><li>Үй тапсырмасын орындауды шағын бөліктерге бөліп, қысқа үзілістер жасау.</li><li>Баланы қарапайым әлеуметтік әрекеттерді (дүкенде сәлемдесу, көмек сұрау) өз бетімен орындауға ынталандыру.</li><li>Тренингте меңгерілген дағдыларды үйде бекіту тапсырмалары арқылы қайталау.</li><li>Мектептегі мәселелерді мұғаліммен, әлеуметтік педагогпен және педагог-психологпен уақытында талқылау.</li><li>Ата-аналар жиналыстары мен практикумдарына тұрақты қатысу.</li></ol></div></div></section>
+<footer><p>«Сенімді қадам» платформасы. Тренингтер жинағының авторы: Айгерім Тайғарина, әлеуметтік педагог, Л.Н. Гумилев атындағы Еуразия ұлттық университетінің магистранты (7М01801 «Әлеуметтік педагогика»).</p></footer>
+</div>
+<script>
+(function(){
+const btns=[...document.querySelectorAll('.filters button')],items=[...document.querySelectorAll('#trlist .tr')];
+btns.forEach(b=>b.addEventListener('click',()=>{btns.forEach(x=>x.setAttribute('aria-pressed',x===b));const f=b.dataset.f;items.forEach(it=>{it.hidden=!(f==='all'||it.dataset.c.split(' ').includes(f))})}));
+const KEY='qo-card';let st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){st={}}
+const sels=[...document.querySelectorAll('#card select')];
+function tot(){['a','b','c'].forEach(s=>{let t=0,n=0;sels.filter(x=>x.id.endsWith(s)).forEach(x=>{if(x.value!==''){t+=+x.value;n++}});document.getElementById('t'+s).textContent=n?t:'0'})}
+sels.forEach(s=>{if(st[s.id]!=null)s.value=st[s.id];s.addEventListener('change',()=>{st[s.id]=s.value;try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}tot()})});tot();
+document.getElementById('clear').addEventListener('click',()=>{sels.forEach(s=>s.value='');st={};try{localStorage.removeItem(KEY)}catch(e){}tot()});
+const tabs=[...document.querySelectorAll('nav a')];
+function mark(){const h=location.hash||'#diag';tabs.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')===h))}
+window.addEventListener('hashchange',mark);mark();
+})();
+</script>
+<script>
+(function(){
+const KEY=[[1, 3, 0], [0, 1, 3], [1, 0, 3], [3, 1, 0], [0, 3, 1], [1, 3, 0], [3, 1, 0], [1, 0, 3], [1, 3, 0], [3, 1, 0]];
+const LV=[[25,'Жоғары','lv-hi'],[20,'Жақсы','lv-hi'],[15,'Орташа','lv-mid'],[10,'Төмен','lv-lo'],[0,'Дезадаптация белгісі','lv-lo']];
+function lcalc(){let n=0,s=0;for(let i=1;i<=10;i++){const c=document.querySelector('input[name="lq'+i+'"]:checked');if(c){n++;s+=KEY[i-1][+c.value-1]}}
+const r=document.getElementById('lres');
+if(n<10){r.innerHTML='Жауаптарды белгілеңіз: '+n+'/10'+(n?' · ағымдағы балл: '+s:'');return}
+const l=LV.find(x=>s>=x[0]);r.innerHTML='Жиынтық балл: '+s+' / 30 <span class="lv '+l[2]+'">'+l[1]+'</span>'}
+document.querySelectorAll('.lform input').forEach(x=>x.addEventListener('change',lcalc));
+document.getElementById('lclear').addEventListener('click',()=>{document.querySelectorAll('.lform input').forEach(x=>x.checked=false);lcalc()});
+function ls(){const a=+document.getElementById('ls1').value,b=+document.getElementById('ls2').value,c=+document.getElementById('ls3').value,r=document.getElementById('lsres');
+if(!a){r.textContent='Баспалдақтарды таңдаңыз.';return}
+let t=a<=3?'Өзін жоғары бағалайды – жасына тән.':(a===4?'Өзін орташа бағалайды – назар аударған жөн.':'Өзін төмен бағалайды – педагог-психологпен бірлесіп әңгімелесу ұсынылады.');
+const lows=[b,c].filter(v=>v>=5).length;if(lows)t+=' Ересектер оны төмен бағалайды деп ойлайды – ересектермен қарым-қатынасына назар аударыңыз.';
+r.textContent=t}
+['ls1','ls2','ls3'].forEach(id=>document.getElementById(id).addEventListener('change',ls));
+let names=[];
+function build(){names=document.getElementById('smnames').value.split('\n').map(x=>x.trim()).filter(Boolean);
+const tb=document.querySelector('#smtab tbody');tb.innerHTML='';
+names.forEach((n,i)=>{const tr=document.createElement('tr');const td=document.createElement('td');td.textContent=n;tr.appendChild(td);
+for(let k=0;k<3;k++){const c=document.createElement('td');const s=document.createElement('select');s.id='sm'+i+'_'+k;s.setAttribute('aria-label',n+', '+(k+1)+'-таңдау');
+s.add(new Option('–',''));names.forEach((m,j)=>{if(j!==i)s.add(new Option(m,String(j)))});s.addEventListener('change',calc);c.appendChild(s);tr.appendChild(c)}
+tb.appendChild(tr)});
+document.getElementById('smwrap').hidden=!names.length;calc()}
+function calc(){const ch=names.map((_,i)=>[0,1,2].map(k=>document.getElementById('sm'+i+'_'+k)).filter(Boolean).map(s=>s.value).filter(v=>v!=='').map(Number));
+const rec=names.map(()=>0);ch.forEach(a=>new Set(a).forEach(j=>rec[j]++));
+const ob=document.querySelector('#smout tbody');ob.innerHTML='';
+names.forEach((n,i)=>{const mutual=[...new Set(ch[i])].filter(j=>ch[j].includes(i)).map(j=>names[j]);
+const st=rec[i]===0?'Оқшауланған':rec[i]===1?'Аз таңдалған':rec[i]<=4?'Қабылданған':'Көп таңдалған';
+const tr=document.createElement('tr');[n,String(rec[i]),mutual.join(', ')||'–',st].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});ob.appendChild(tr)});
+document.getElementById('smoutw').hidden=!names.length||!ch.some(a=>a.length)}
+document.getElementById('smbuild').addEventListener('click',build);
+})();
+</script>
+</body>
+</html>
